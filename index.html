@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Branch Company</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* General styles */
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        /* Header styles */
+        header {
+            background-color: #34495e;
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1rem;
+            color: #ecf0f1;
+        }
+
+        /* Navigation styles */
+        nav {
+            background-color: #2c3e50;
+            padding: 0.5rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav li {
+            margin-right: 1rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #1abc9c;
+        }
+
+        /* Notification styles */
+        .notification {
+            position: relative;
+        }
+
+        .notification button {
+            background-color: #1abc9c;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .notification button:hover {
+            background-color: #16a085;
+        }
+
+        .notification-panel {
+            position: absolute;
+            top: 2.5rem;
+            right: 0;
+            width: 300px;
+            background-color: white;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            display: none;
+        }
+
+        .notification-panel.active {
+            display: block;
+        }
+
+        .notification-panel ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .notification-panel li {
+            padding: 1rem;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .notification-panel li:hover {
+            background-color: #f4f4f9;
+        }
+
+        .notification-panel li:last-child {
+            border-bottom: none;
+        }
+
+        .notification-panel .time {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        /* Main content styles */
+        main {
+            padding: 2rem 1rem;
+        }
+
+        section {
+            background-color: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        section h2 {
+            font-size: 1.75rem;
+            color: #34495e;
+            margin-bottom: 1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .branch-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .card {
+            background-color: #ecf0f1;
+            padding: 1rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .boxi {
+            background-color: #ecf0f1;
+            padding: 1rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            color: #2c3e50;
+        }
+
+        .card p {
+            margin: 0.5rem 0;
+        }
+
+        /* Contact styles */
+        .contact-info {
+            margin-top: 2rem;
+        }
+
+        .contact-info p {
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+        }
+
+        /* Branches specific styles */
+        .branch-info {
+            margin-top: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .branch-info p {
+            margin: 0.3rem 0;
+        }
+
+        /* Responsive styles */
+        @media (min-width: 768px) {
+            header h1 {
+                font-size: 3rem;
+            }
+
+            header p {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+    <script>
+        function toggleNotifications() {
+            const panel = document.querySelector('.notification-panel');
+            panel.classList.toggle('active');
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Multi-Branch Company</h1>
+        <p>Leading Solutions Across All Branches</p>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#branches">Branches</a></li>
+            <li><a href="#team">Our Team</a></li>
+            <li><a href="#feedback">Feedback</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+            <li class="notification">
+                <button onclick="toggleNotifications()">Notifications</button>
+                <div class="notification-panel">
+                    <ul>
+                        <li>
+                            <p>New policy updates available. Please review.</p>
+                            <p class="time">2 hours ago</p>
+                        </li>
+                        <li>
+                            <p>Scheduled maintenance on 25th Dec.</p>
+                            <p class="time">1 day ago</p>
+                        </li>
+                        <li>
+                            <p>New branch opening in Sylhet.</p>
+                            <p class="time">3 days ago</p>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <main>
+        <section id="about">
+            <h2>About Us</h2>
+            <p>Multi-Branch Company delivers innovative solutions across multiple branches with seamless connectivity and efficient operations. Our mission is to empower organizations through cutting-edge technology and exceptional service.</p>
+        </section>
+
+        <section id="services">
+            <h2>Our Services</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>File Sharing</h3>
+                    <p>Secure and encrypted file sharing solutions.</p>
+                </div>
+                <div class="card">
+                    <h3>Data Backup</h3>
+                    <p>Automated backup and disaster recovery.</p>
+                </div>
+                <div class="card">
+                    <h3>Network Security</h3>
+                    <p>Intrusion detection and prevention systems.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="branches">
+            <h2>Our Branches</h2>
+        
+            <p>We have branches in the following locations:</p>
+            <div class="branch-info">
+                <div class="boxi">
+                <div class="b">
+                <h3>Dhaka - Main Headquarters</h3>
+                <p>Location: 123 Main Street, Dhaka, Bangladesh</p>
+                <p>Contact Number: +880-18525-456789</p>
+                <p>Email: <a href="mailto:dhaka@company.com">dhaka@company.com</a></p>
+                <p>Operational Director: Mr. Ebadth</p>
+            </div>
+        </div>
+            <div class="branch-info">
+                <div class="b">
+                    <div class="boxi">
+                <h3>Chittagong - Coastal Operations</h3>
+                <p>Location: 456 Coastal Road, Chittagong, Bangladesh</p>
+                <p>Contact Number: +880-176658285</p>
+                <p>Email: <a href="mailto:chittagong@company.com">chittagong@company.com</a></p>
+                <p>Operational Director: Ms. Akib </p>
+            </div>
+        </div>
+            </div>
+            <div class="b">
+                <div class="boxi">
+                <h3>Sylhet - New Branch</h3>
+                <p>Location: 789 Sylhet Avenue, Sylhet, Bangladesh</p>
+                <p>Contact Number: +880-345-678901</p>
+                <p>Email: <a href="mailto:sylhet@company.com">sylhet@company.com</a></p>
+                <p>Operational Director: Mr. Ahmed Khan</p>
+            </div>
+        </div>
+            <div class="b">
+                <div class="boxi">
+                <h3>Khulna - Maingrobe</h3>
+                <p>Location: 789 Sylhet Avenue, Sylhet, Bangladesh</p>
+                <p>Contact Number: +880-1952878901</p>
+                <p>Email: <a href="mailto:sylhet@company.com">sylhet@company.com</a></p>
+                <p>Operational Director: Mr. Ahmed Khan</p>
+            </div>
+        </div>
+    </div>
+        </section>
+
+        <section id="team">
+            <h2>Our Team</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>CEO - Mr. Adam Smith</h3>
+                    <p>Leading the company to new heights.</p>
+                </div>
+                <div class="card">
+                    <h3>CTO - Mrs. Sarah Lee</h3>
+                    <p>Innovating technology solutions.</p>
+                </div>
+                <div class="card">
+                    <h3>COO - Mr. David Brown</h3>
+                    <p>Managing operations across all branches.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="feedback">
+            <h2> Feedback</h2>
+            Your Feedback will help us .<a href="https://saidul2104.github.io/feedback/"> <button>FEEDBACK</button></a>
+        </section
+
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <div class="contact-info">
+                <p>Email: <a href="mailto:info@multibranch.com">info@company.com</a></p>
+                <p>Office Location: 123 Main Street, Dhaka, Bangladesh</p>
+                <p>Phone: +880-1923-456789</p>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
